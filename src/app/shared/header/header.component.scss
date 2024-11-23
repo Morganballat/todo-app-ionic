@@ -1,0 +1,9 @@
+ion-toolbar {
+  --background: var(--ion-color-success);
+  --color: var(--ion-color-light);
+}
+
+.selected {
+  color: var(--ion-color-primary);
+  font-weight: bold;
+}

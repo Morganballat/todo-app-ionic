@@ -1,3 +1,22 @@
 <ion-app>
+
+  <!-- J'aimerais utiliser mon module header plutot que le html direcmtent ic, mais je n'arrive pas à router -->
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>App Title</ion-title>
+      <ion-buttons slot="end">
+        <!-- Bouton de navigation vers la page Home -->
+        <ion-button routerLink="/home" routerLinkActive="selected">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+        </ion-button>
+        <!-- Bouton de navigation vers la page Tasks -->
+        <ion-button routerLink="/tasks" routerLinkActive="selected">
+          <ion-icon slot="icon-only" name="list"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <ion-router-outlet></ion-router-outlet>
+  <app-footer></app-footer>
 </ion-app>
