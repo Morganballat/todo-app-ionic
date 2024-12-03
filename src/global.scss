@@ -43,3 +43,7 @@ body {
 ion-button {
   --border-radius: 12px;
 }
+
+ion-content {
+  --padding-top: var(--ion-safe-area-top);
+}

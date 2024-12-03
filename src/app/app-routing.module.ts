@@ -11,9 +11,13 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  // {
+  //   path: 'projects',
+  //   loadChildren: () => import('./project/project-list/project-list.module').then(m => m.ProjectListPageModule)
+  // },
   {
-    path: 'tasks',
-    loadChildren: () => import('./task/task.module').then(m => m.TaskPageModule)
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule)
   },
 ];
 
