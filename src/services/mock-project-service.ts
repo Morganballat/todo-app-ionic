@@ -4,22 +4,22 @@ import { Observable, of } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class ProjectService
+export class MockProjectService
 {
     private projects = [
         {
-            id: '1',
+            id: 1,
             name: 'Project 1',
             tasks: [
-                { id: '1', name: 'Task 1' },
-                { id: '2', name: 'Task 2' }
+                { id: 1, name: 'Task 1' },
+                { id: 2, name: 'Task 2' }
             ]
         },
         {
-            id: '2',
+            id: 2,
             name: 'Project 2',
             tasks: [
-                { id: '3', name: 'Task 3' }
+                { id: 3, name: 'Task 3' }
             ]
         }
     ];
@@ -29,7 +29,7 @@ export class ProjectService
         return of(this.projects);
     }
 
-    getProjectById(projectId: string): Observable<any>
+    getProject(projectId: number): Observable<any>
     {
         const project = this.projects.find(p => p.id === projectId);
         return of(project);

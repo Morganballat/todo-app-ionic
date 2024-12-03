@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { ProjectDetailPageRoutingModule } from './project-detail-routing.module';
-
-import { ProjectDetailPage } from './project-detail.page';
+import { ProjectPageRoutingModule } from './project-routing.module';
+import { ProjectPage } from './project.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProjectDetailPageRoutingModule
+    ProjectPageRoutingModule
   ],
-  declarations: [ProjectDetailPage]
+  declarations: [ProjectPage]
 })
-export class ProjectDetailPageModule { }
+export class ProjectPageModule { }
