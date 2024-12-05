@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>project-form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-toolbar>
+      <ion-title size="large">Créer une tâche</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="form" (ngSubmit)="createTask()">
+    <ion-item>
+      <ion-label position="floating">Nom de la tâche</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label position="floating">Priorité</ion-label>
+      <ion-select formControlName="priority">
+        <ion-select-option value="1">Basse</ion-select-option>
+        <ion-select-option value="2">Moyenne</ion-select-option>
+        <ion-select-option value="3">Haute</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+    <ion-button expand="full" type="submit">Créer</ion-button>
+  </form>
+
+</ion-content>

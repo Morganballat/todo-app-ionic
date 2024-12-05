@@ -37,8 +37,8 @@ export class TaskPage implements OnInit
     this.mockTaskService.deleteTask(1, id);
   }
 
-  addTask(taskName: string)
-  {
-    this.mockTaskService.createTask(1, { name: taskName });
-  }
+  // addTask(taskName: string)
+  // {
+  //   this.mockTaskService.createTask(1, { name: taskName });
+  // }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Task } from 'src/app/task/models/task';
+import { Task } from 'src/app/pages/task/models/task';
 
 @Injectable({
     providedIn: 'root'
@@ -12,15 +12,15 @@ export class MockTaskService
             id: 1,
             name: 'Project 1',
             tasks: [
-                { id: 1, name: 'Task 1' },
-                { id: 2, name: 'Task 2' }
+                { id: 1, name: 'Task 1', done: false },
+                { id: 2, name: 'Task 2', done: false }
             ]
         },
         {
             id: 2,
             name: 'Project 2',
             tasks: [
-                { id: 3, name: 'Task 3' }
+                { id: 3, name: 'Task 3', done: false }
             ]
         }
     ];
@@ -35,15 +35,17 @@ export class MockTaskService
         return of(undefined);
     }
 
-    createTask(projectId: number, task: any): Observable<any>
+    createTask(projectId: number, task: Task): Observable<any>
     {
         const project = this.projects.find(p => p.id === projectId);
+        console.log(project);
         if (project)
         {
-            task.id = (project.tasks.length + 1).toString();
+            task.id = (project.tasks.length + 1);
             project.tasks.push(task);
+            console.log(project);
         }
-        return of(task);
+        return of(project);
     }
 
     updateTask(projectId: number, taskId: number, task: any): Observable<any>

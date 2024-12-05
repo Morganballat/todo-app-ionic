@@ -1,0 +1,28 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title size="large" class="ion-text-center">{{ project.name }}</ion-title>
+        <ion-button [routerLink]="['/task-form', project.id]">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-list>
+      <ion-item *ngFor="let task of project.tasks">
+        <div *ngIf="!task.done">
+          <ion-label>{{ task.name }}</ion-label>
+        </div>
+        <div *ngIf="task.done">
+          <ion-label><s>{{ task.name }}</s></ion-label>
+        </div>
+        <ion-checkbox [(ngModel)]="task.done" (ionChange)="completeTask(project.id, task.id)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>

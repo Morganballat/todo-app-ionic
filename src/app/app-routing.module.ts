@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,15 +13,23 @@ const routes: Routes = [
   },
   {
     path: 'project/:projectId',
-    loadChildren: () => import('./project/project.module').then(m => m.ProjectPageModule)
+    loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectPageModule)
   },
   {
     path: ':projectId/tasks',
-    loadChildren: () => import('./task/task.module').then(m => m.TaskPageModule)
+    loadChildren: () => import('./pages/task/task.module').then(m => m.TaskPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'project-form',
+    loadChildren: () => import('./pages/project-form/project-form.module').then(m => m.ProjectFormPageModule)
+  },
+  {
+    path: 'task-form/:projectId',
+    loadChildren: () => import('./pages/task-form/task-form.module').then(m => m.TaskFormPageModule)
   },
 ];
 

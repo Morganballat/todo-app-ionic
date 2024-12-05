@@ -33,4 +33,9 @@ export class HomePage
     this.router.navigate(['/project', projectId]);
   }
 
+  deleteProject(id: number)
+  {
+    this.projectService.deleteProject(id);
+  }
+
 }
