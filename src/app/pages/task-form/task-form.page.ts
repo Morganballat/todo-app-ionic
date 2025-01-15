@@ -26,8 +26,6 @@ export class TaskFormPage implements OnInit
   {
     const projectIdParam = this.route.snapshot.paramMap.get('projectId');
     this.projectId = projectIdParam ? parseInt(projectIdParam) : undefined;
-
-
     this.form = new FormGroup({
       name: new FormControl('', Validators.required)
     });
@@ -44,15 +42,11 @@ export class TaskFormPage implements OnInit
       return;
     }
 
-    console.log('Creating task for project ' + this.projectId);
-    console.log(task);
-    // this.taskService.createTask(this.projectId, task).subscribe(
-    //   (response) =>
-    //   {
-    //     console.log(response);
-    //     this.router.navigate(['/project/' + response.id]);
-
-    //   });
+    this.taskService.saveTask(this.projectId, task).then(
+      (response) =>
+      {
+        this.router.navigate(['/project/' + this.projectId]);
+      });
   }
 
 }

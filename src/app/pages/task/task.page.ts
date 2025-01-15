@@ -29,7 +29,7 @@ export class TaskPage implements OnInit
     //   }
 
     // });
-    this.TaskService.getTask();
+    // this.TaskService.getTask();
   }
 
   // deleteTask(id: number)

@@ -5,6 +5,6 @@ export class Project
     id!: number;
     userId!: number;
     name!: string;
-    tasks: Task[] | [] = [];
+    tasks: Task[] | null | undefined;
     priority!: number;
 }

@@ -12,17 +12,19 @@
       </ion-toolbar>
     </ion-header>
 
-    <!-- <ion-list>
+    <ion-list>
+
       <ion-item *ngFor="let task of project.tasks">
-        <div *ngIf="!task.done">
-          <ion-label>{{ task.name }}</ion-label>
-        </div>
         <div *ngIf="task.done">
           <ion-label><s>{{ task.name }}</s></ion-label>
         </div>
-        <ion-checkbox [(ngModel)]="task.done" (ionChange)="completeTask(project.id, task.id)"></ion-checkbox>
+        <div *ngIf="!task.done">
+          <ion-label>{{ task.name }}</ion-label>
+        </div>
+
+        <ion-checkbox [(ngModel)]="task.done" (ionChange)="completeTask(task)"></ion-checkbox>
       </ion-item>
-    </ion-list> -->
+    </ion-list>
 
   </div>
 </ion-content>

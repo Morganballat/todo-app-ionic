@@ -22,7 +22,6 @@
     <ion-list>
       <ion-item *ngFor="let project of projects" (click)="projectSelected(project.id)">
         <ion-label>{{ project.name }}</ion-label>
-
         <ion-buttons slot="end">
           <ion-button (click)="deleteProject(project.id)">
             <ion-icon slot="icon-only" name="trash"></ion-icon>

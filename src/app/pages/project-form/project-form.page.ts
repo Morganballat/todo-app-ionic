@@ -36,7 +36,6 @@ export class ProjectFormPage implements OnInit
     this.projectService.createProject(project).subscribe(
       (response) =>
       {
-        console.log(response);
         this.router.navigate(['/project/' + response.id]);
 
       });

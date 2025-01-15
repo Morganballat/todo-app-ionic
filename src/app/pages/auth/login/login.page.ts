@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth-service';
+import { Project } from '../../project/models/project';
+import { MOCK_PROJECTS } from 'src/app/mock-data/project.mock';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,19 @@ export class LoginPage implements OnInit
   public loginForm!: FormGroup;
   public errorMessage = '';
   public isLogged = false;
+  public projects: Project[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) { }
+  )
+  {
+    this.projects = MOCK_PROJECTS.map(project => ({
+      ...project,
+      tasks: project.tasks ?? []
+    }));
+  }
 
   ngOnInit()
   {
@@ -34,14 +43,12 @@ export class LoginPage implements OnInit
   {
     if (this.loginForm.valid)
     {
-      console.log('Form Submitted', this.loginForm.value);
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
-
       const isAuthenticated = this.authService.login(email, password);
-
       if (isAuthenticated)
       {
+        localStorage.setItem('projects', JSON.stringify(this.projects));
         this.router.navigate(['/home']);
       } else
       {

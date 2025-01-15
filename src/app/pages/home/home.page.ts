@@ -28,25 +28,22 @@ export class HomePage implements OnInit
     this.currentUser = this.userService.getCurrentUser();
   }
 
-
   ngOnInit()
   {
     this.isLoggedIn = this.authService.isLoggedIn();
 
     if (!this.isLoggedIn)
     {
-      this.router.navigate(['/login']); // Redirection si l'utilisateur n'est pas connecté
+      this.router.navigate(['/login']);
     }
 
 
-    this.projectService.getProjects(this.currentUser?.id).subscribe((projects: Project[]) =>
+    this.projectService.getProjects().subscribe((projects: Project[]) =>
     {
       this.projects = projects;
     });
 
   }
-
-
 
   projectSelected(projectId: number)
   {
@@ -56,6 +53,7 @@ export class HomePage implements OnInit
   deleteProject(id: number)
   {
     this.projectService.deleteProject(id);
+    window.location.reload();
   }
 
 }
