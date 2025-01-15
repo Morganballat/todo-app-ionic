@@ -3,8 +3,6 @@ import { Project } from '../project/models/project';
 import { ProjectService } from 'src/services/project-service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth-service';
-import { User } from '../auth/login/model/user';
-import { UserService } from 'src/services/user-service';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +13,14 @@ export class HomePage implements OnInit
 {
 
   public projects!: Project[];
-  private currentUser: User;
   isLoggedIn = false;
 
   constructor(
     private authService: AuthService,
     private projectService: ProjectService,
-    private router: Router,
-    private userService: UserService
+    private router: Router
   )
-  {
-    this.currentUser = this.userService.getCurrentUser();
-  }
+  { }
 
   ngOnInit()
   {

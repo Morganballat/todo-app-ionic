@@ -12,41 +12,86 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TaskFormPage implements OnInit
 {
   public form!: FormGroup;
-
+  public updateProcess = false;
   public projectId: number | undefined;
+  private taskId: string | null;
 
   constructor(
     private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute,
 
-  ) { }
+  )
+  {
+
+    this.form = new FormGroup({
+      name: new FormControl('', Validators.required)
+    });
+
+    this.taskId = this.route.snapshot.paramMap.get('taskId');
+    if (this.taskId)
+    {
+      this.updateProcess = true;
+
+      this.taskService.getTask(parseInt(this.taskId)).then(task =>
+      {
+        this.form.patchValue({
+          name: task.name
+        });
+      });
+
+      this.form.patchValue({ name: 'task.name' });
+    }
+
+
+  }
 
   ngOnInit()
   {
     const projectIdParam = this.route.snapshot.paramMap.get('projectId');
     this.projectId = projectIdParam ? parseInt(projectIdParam) : undefined;
-    this.form = new FormGroup({
-      name: new FormControl('', Validators.required)
-    });
+
   }
 
-  createTask()
+  submit()
   {
-    const task = new Task();
-    task.name = this.form.value.name;
-    task.done = false;
-
-    if (this.projectId === undefined)
+    if (!this.updateProcess)
     {
-      return;
+      const task = new Task();
+      task.name = this.form.value.name;
+      task.done = false;
+
+      if (this.projectId === undefined)
+      {
+        return;
+      }
+
+      this.taskService.saveTask(this.projectId, task).then(
+        (response) =>
+        {
+          this.router.navigate(['/project/' + this.projectId]);
+        });
+
+    } else
+    {
+      const task = new Task();
+      task.name = this.form.value.name;
+      task.done = false;
+
+      if (this.projectId === undefined)
+      {
+        return;
+      }
+
+      this.taskService.updateTask(task).then(
+        (response) =>
+        {
+          this.router.navigate(['/project/' + this.projectId]);
+        });
     }
 
-    this.taskService.saveTask(this.projectId, task).then(
-      (response) =>
-      {
-        this.router.navigate(['/project/' + this.projectId]);
-      });
   }
+
+
 
 }

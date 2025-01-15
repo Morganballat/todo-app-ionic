@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/services/project-service';
 import { Project } from './models/project';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from 'src/services/task-service';
 import { Task } from '../task/models/task';
 
@@ -17,6 +17,7 @@ export class ProjectPage implements OnInit
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private projectService: ProjectService,
     private taskService: TaskService
 
@@ -25,15 +26,11 @@ export class ProjectPage implements OnInit
   ngOnInit()
   {
     const projectId = this.route.snapshot.paramMap.get('projectId');
-    console.log(this.route.snapshot.paramMap);
     if (projectId)
     {
-      console.log('ProjectPage projectId: ' + projectId);
       this.projectService.getProject(parseInt(projectId)).subscribe(project =>
       {
-
         this.project = project;
-        console.log('ProjectPage project: ' + project);
       });
     }
   }
@@ -43,18 +40,13 @@ export class ProjectPage implements OnInit
     this.taskService.removeTask(task);
   }
 
-  updateTask(task: any)
+  updateTask(id: any)
   {
-    this.taskService.updateTask(task).then(
-      (response) =>
-      {
-        console.log(response);
-      });
+    this.router.navigate(['/task-update', id]);
   }
 
   completeTask(task: Task)
   {
-    task.done = true;
     this.taskService.completeTask(task.id).then(
       (response) =>
       {

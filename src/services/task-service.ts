@@ -79,7 +79,14 @@ export class TaskService
             {
                 if (task.id === taskId)
                 {
-                    task.done = true;
+                    if (task.done === true)
+                    {
+                        task.done = false;
+                    }
+                    else
+                    {
+                        task.done = true;
+                    }
                 }
             });
         });
@@ -91,9 +98,32 @@ export class TaskService
 
     }
 
-    getTask(): Promise<any>
+    getTask(id: number): Promise<any>
     {
-        return Promise.resolve(localStorage.getItem('task'));
+
+        const storedProjects = localStorage.getItem('projects');
+        this.projects = storedProjects ? JSON.parse(storedProjects) : [];
+
+        let task: Task | null = null;
+        this.projects.forEach(project =>
+        {
+            project.tasks?.forEach(t =>
+            {
+                if (t.id === id)
+                {
+                    task = t;
+                }
+            });
+        });
+
+        if (task)
+        {
+            return Promise.resolve(task);
+        } else
+        {
+            return Promise.reject('Task not found');
+        }
+
     }
 
     removeTask(task: Task): Promise<any>
@@ -104,8 +134,25 @@ export class TaskService
 
     updateTask(task: Task): Promise<any>
     {
-        localStorage.setItem('task', JSON.stringify(task));
-        return Promise.resolve(task);
+
+        const storedProjects = localStorage.getItem('projects');
+        this.projects = storedProjects ? JSON.parse(storedProjects) : [];
+
+        this.projects.forEach(project =>
+        {
+            project.tasks?.forEach(t =>
+            {
+                if (t.id === task.id)
+                {
+                    t.name = task.name;
+                    t.done = task.done;
+                }
+            });
+        });
+
+        localStorage.setItem('projects', JSON.stringify(this.projects));
+        return Promise.resolve()
+
     }
 
     countTasks(): number
