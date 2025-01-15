@@ -5,9 +5,17 @@ import { Project } from 'src/app/pages/project/models/project';
 @Injectable({
     providedIn: 'root'
 })
-export class MockProjectService
+export class ProjectService
 {
     private projects = [
+        {
+            id: 1,
+            name: 'Project 1',
+            tasks: [
+                { id: 1, name: 'Task 1', done: false },
+                { id: 2, name: 'Task 2', done: false }
+            ]
+        },
         {
             id: 1,
             name: 'Project 1',
@@ -25,9 +33,10 @@ export class MockProjectService
         }
     ];
 
-    getProjects(): Observable<any[]>
+    getProjects(userId: number): Observable<any[]>
     {
-        return of(this.projects);
+        const userProjects = this.projects.filter(p => p.id === userId);
+        return of(userProjects);
     }
 
     getProject(projectId: number): Observable<any>

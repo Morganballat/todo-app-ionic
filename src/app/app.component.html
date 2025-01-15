@@ -1,20 +1,5 @@
 <ion-app>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>To do list</ion-title>
-      <ion-buttons slot="end">
-        <ion-button routerLink="/home" routerLinkActive="selected">
-          <ion-icon slot="icon-only" name="home"></ion-icon>
-        </ion-button>
-        <!-- <ion-button routerLink="/projects" routerLinkActive="selected">
-          <ion-icon slot="icon-only" name="list"></ion-icon>
-        </ion-button> -->
-        <ion-button routerLink="/login" routerLinkActive="selected">
-          <ion-icon slot="icon-only" name="list"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <app-header></app-header>
   <ion-router-outlet></ion-router-outlet>
   <app-footer></app-footer>
 </ion-app>

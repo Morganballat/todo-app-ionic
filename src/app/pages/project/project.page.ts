@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MockProjectService } from 'src/services/mock-project-service';
+import { ProjectService } from 'src/services/project-service';
 import { Project } from './models/project';
 import { ActivatedRoute } from '@angular/router';
-import { MockTaskService } from 'src/services/mock-task-service';
+import { TaskService } from 'src/services/task-service';
 
 @Component({
   selector: 'app-project',
@@ -16,8 +16,8 @@ export class ProjectPage implements OnInit
 
   constructor(
     private route: ActivatedRoute,
-    private projectService: MockProjectService,
-    private mockTaskService: MockTaskService
+    private projectService: ProjectService,
+    private taskService: TaskService
 
   ) { }
 
@@ -36,24 +36,24 @@ export class ProjectPage implements OnInit
     }
   }
 
-  deleteTask(id: number)
-  {
-    this.mockTaskService.deleteTask(1, id);
-  }
+  // deleteTask(id: number)
+  // {
+  //   this.taskService.deleteTask(1, id);
+  // }
 
-  completeTask(projectId: number, taskId: number)
-  {
-    this.mockTaskService.getTask(projectId, taskId).subscribe(task => 
-    {
-      if (task)
-      {
-        task.done = true;
-        this.mockTaskService.updateTask(projectId, taskId, task);
-        this.projectService.getProject(projectId).subscribe(updatedProject => 
-        {
-          this.project = updatedProject;
-        });
-      }
-    });
-  }
+  // completeTask(projectId: number, taskId: number)
+  // {
+  //   this.taskService.getTask(projectId, taskId).subscribe(task => 
+  //   {
+  //     if (task)
+  //     {
+  //       task.done = true;
+  //       this.taskService.updateTask(projectId, taskId, task);
+  //       this.projectService.getProject(projectId).subscribe(updatedProject => 
+  //       {
+  //         this.project = updatedProject;
+  //       });
+  //     }
+  //   });
+  // }
 }

@@ -1,3 +1,21 @@
 <ion-footer>
-  footer
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" (click)="navigateTo('home')" expand="block">
+          <ion-icon name="home-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="!isLoggedIn">
+        <ion-button fill="clear" (click)="navigateTo('login')" expand="block">
+          <ion-icon name="person-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="isLoggedIn">
+        <ion-button fill="clear" (click)="navigateTo('profile')" expand="block">
+          <ion-icon name="person-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-footer>

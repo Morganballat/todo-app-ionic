@@ -1,0 +1,14 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-text>
+      <h1>{{userEmail}}</h1>
+    </ion-text>
+    <ion-list>
+      <ion-buttons slot="end">
+        <ion-button (click)="onLogOut()">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MockProjectService } from 'src/services/mock-project-service';
+import { ProjectService } from 'src/services/project-service';
 import { Project } from '../project/models/project';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ export class ProjectFormPage implements OnInit
   public form!: FormGroup;
 
   constructor(
-    private projectService: MockProjectService,
+    private projectService: ProjectService,
     private router: Router
   ) { }
 

@@ -1,6 +1,6 @@
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MockTaskService } from 'src/services/mock-task-service';
+import { TaskService } from 'src/services/task-service';
 import { Task } from '../task/models/task';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class TaskFormPage implements OnInit
   public projectId: number | undefined;
 
   constructor(
-    private taskService: MockTaskService,
+    private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute,
 
@@ -46,13 +46,13 @@ export class TaskFormPage implements OnInit
 
     console.log('Creating task for project ' + this.projectId);
     console.log(task);
-    this.taskService.createTask(this.projectId, task).subscribe(
-      (response) =>
-      {
-        console.log(response);
-        this.router.navigate(['/project/' + response.id]);
+    // this.taskService.createTask(this.projectId, task).subscribe(
+    //   (response) =>
+    //   {
+    //     console.log(response);
+    //     this.router.navigate(['/project/' + response.id]);
 
-      });
+    //   });
   }
 
 }
