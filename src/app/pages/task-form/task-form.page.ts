@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from 'src/services/task-service';
 import { Task } from '../task/models/task';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
 
 @Component({
   selector: 'app-task-form',
@@ -15,6 +17,8 @@ export class TaskFormPage implements OnInit
   public updateProcess = false;
   public projectId: number | undefined;
   private taskId: string | null;
+  imageUrl: string | undefined;
+
 
   constructor(
     private taskService: TaskService,
@@ -41,9 +45,8 @@ export class TaskFormPage implements OnInit
       });
 
       this.form.patchValue({ name: 'task.name' });
+
     }
-
-
   }
 
   ngOnInit()
@@ -91,6 +94,28 @@ export class TaskFormPage implements OnInit
     }
 
   }
+
+  async takePhoto(): Promise<any>
+  {
+    try
+    {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+      });
+
+      const imageUrl = image.webPath;
+
+      console.log('Image URL:', imageUrl);
+      return imageUrl;
+    } catch (error)
+    {
+      console.error('Camera issue:', error);
+    }
+  }
+
 
 
 
