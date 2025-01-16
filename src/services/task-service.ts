@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Task } from 'src/app/pages/task/models/task';
-import { MOCK_PROJECTS } from 'src/app/mock-data/project.mock';
 import { Project } from 'src/app/pages/project/models/project';
-import { ProjectService } from './project-service';
-import { Storage } from '@ionic/storage-angular';
 import { MOCK_TASKS } from 'src/app/mock-data/task.mock';
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -21,24 +18,6 @@ export class TaskService
     {
 
     }
-
-    // createProject(project: Project): Observable<any>
-    // {
-    //     project.id = this.projects.length + 1;
-
-    //     const storedProjects = localStorage.getItem('projects');
-
-    //     if (storedProjects)
-    //     {
-    //         this.projects = JSON.parse(storedProjects);
-    //     }
-
-    //     project.tasks = [];
-    //     project.userId = this.user.id;
-    //     this.projects.push(project as { id: number; userId: number; priority: number, name: string; tasks: never[] });
-    //     localStorage.setItem('projects', JSON.stringify(this.projects));
-    //     return of(project);
-    // }
 
     saveTask(projectId: number, task: Task): Promise<any>
     {

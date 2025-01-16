@@ -20,7 +20,14 @@ export class HomePage implements OnInit
     private projectService: ProjectService,
     private router: Router
   )
-  { }
+  {
+    this.projectService.getProjects().subscribe((projects: Project[]) =>
+    {
+      this.projects = projects;
+    });
+
+    this.sortProjectsByPriority();
+  }
 
   ngOnInit()
   {
@@ -32,11 +39,14 @@ export class HomePage implements OnInit
     }
 
 
-    this.projectService.getProjects().subscribe((projects: Project[]) =>
-    {
-      this.projects = projects;
-    });
 
+
+
+  }
+
+  sortProjectsByPriority()
+  {
+    this.projects.sort((a, b) => a.priority - b.priority);
   }
 
   projectSelected(projectId: number)
@@ -48,6 +58,21 @@ export class HomePage implements OnInit
   {
     this.projectService.deleteProject(id);
     window.location.reload();
+  }
+
+  getPriorityText(priority: number): string
+  {
+    switch (priority)
+    {
+      case 1:
+        return 'haute';
+      case 2:
+        return 'moyenne';
+      case 3:
+        return 'basse';
+      default:
+        return '';
+    }
   }
 
 }

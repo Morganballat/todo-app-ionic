@@ -13,7 +13,7 @@ import { SharedModule } from '../../modules/shared/shared.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [HomePage],
   exports: [HomePage]

@@ -30,7 +30,13 @@ export class ProjectPage implements OnInit
     {
       this.projectService.getProject(parseInt(projectId)).subscribe(project =>
       {
-        this.project = project;
+        if (project)
+        {
+          this.project = project;
+        } else
+        {
+          console.error('Project not found');
+        }
       });
     }
   }

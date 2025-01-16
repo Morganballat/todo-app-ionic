@@ -19,7 +19,7 @@ export class ProjectService
 
     }
 
-    getProjects(): Observable<any[]>
+    getProjects(): Observable<Project[]>
     {
         const storedProjects = localStorage.getItem('projects');
         this.projects = storedProjects ? JSON.parse(storedProjects) : [];
@@ -30,7 +30,7 @@ export class ProjectService
 
     }
 
-    getProject(projectId: number): Observable<any>
+    getProject(projectId: number): Observable<Project | undefined>
     {
 
         const storedProjects = localStorage.getItem('projects');
@@ -53,7 +53,8 @@ export class ProjectService
 
         project.tasks = [];
         project.userId = this.user.id;
-        this.projects.push(project as { id: number; userId: number; priority: number, name: string; tasks: never[] });
+
+        this.projects.push(project);
         localStorage.setItem('projects', JSON.stringify(this.projects));
         return of(project);
     }
