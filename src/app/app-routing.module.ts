@@ -33,6 +33,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'project-form/:projectId',
+    loadChildren: () => import('./pages/project-form/project-form.module').then(m => m.ProjectFormPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'task-form/:projectId',
     loadChildren: () => import('./pages/task-form/task-form.module').then(m => m.TaskFormPageModule),
     canActivate: [AuthGuard]

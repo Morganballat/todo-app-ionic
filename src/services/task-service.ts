@@ -35,10 +35,7 @@ export class TaskService
         const project = this.projects.find(p => p.id === projectId);
         if (project)
         {
-            project.tasks?.push({
-                id: task.id, name: task.name, done: task.done,
-                projectId: projectId
-            });
+            project.tasks?.push(task);
             localStorage.setItem('projects', JSON.stringify(this.projects));
         }
 
@@ -50,7 +47,7 @@ export class TaskService
     {
         const storedProjects = localStorage.getItem('projects');
         this.projects = storedProjects ? JSON.parse(storedProjects) : [];
-        console.log(this.projects);
+        // console.log(this.projects);
 
         this.projects.forEach(project =>
         {
@@ -107,8 +104,22 @@ export class TaskService
 
     removeTask(task: Task): Promise<any>
     {
-        localStorage.removeItem('task');
+
+        const storedProjects = localStorage.getItem('projects');
+        this.projects = storedProjects ? JSON.parse(storedProjects) : [];
+
+        this.projects.forEach(project =>
+        {
+            const index = project.tasks?.findIndex(t => t.id === task.id);
+            if (index !== undefined && index !== -1)
+            {
+                project.tasks?.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('projects', JSON.stringify(this.projects));
         return Promise.resolve();
+
     }
 
     updateTask(task: Task): Promise<any>
@@ -125,11 +136,13 @@ export class TaskService
                 {
                     t.name = task.name;
                     t.done = task.done;
+                    // t.imageUrl = task.imageUrl;
                 }
             });
         });
 
         localStorage.setItem('projects', JSON.stringify(this.projects));
+        console.log(this.projects);
         return Promise.resolve()
 
     }

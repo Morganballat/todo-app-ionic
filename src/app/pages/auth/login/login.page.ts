@@ -49,7 +49,11 @@ export class LoginPage implements OnInit
       if (isAuthenticated)
       {
         localStorage.setItem('projects', JSON.stringify(this.projects));
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(() =>
+        {
+          window.location.reload();
+        });
+
       } else
       {
         alert('Invalid email or password');

@@ -13,3 +13,7 @@ ion-icon {
   margin: auto;
   --ionicon-stroke-width: 32px;
 }
+
+ion-content::part(scroll) {
+  padding-bottom: var(--ion-safe-area-top, 0);
+}

@@ -59,6 +59,17 @@ export class ProjectService
         return of(project);
     }
 
+    updateProject(project: Project): Observable<any>
+    {
+        const storedProjects = localStorage.getItem('projects');
+        this.projects = storedProjects ? JSON.parse(storedProjects) : [];
+
+        const projectIndex = this.projects.findIndex(p => p.id === project.id);
+        this.projects[projectIndex] = project;
+        localStorage.setItem('projects', JSON.stringify(this.projects));
+        return of(project);
+    }
+
     deleteProject(projectId: number): Observable<any>
     {
         const storedProjects = localStorage.getItem('projects');

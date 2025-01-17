@@ -1,5 +1,4 @@
 <ion-header [translucent]="true">
-
   <ion-toolbar>
     <ion-title>project-form</ion-title>
   </ion-toolbar>
@@ -8,31 +7,49 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-button class="back-chevron" (click)="goBack()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
     </ion-buttons>
     <ion-toolbar>
-      <ion-title size="large">Créer un projet</ion-title>
+      <ion-title *ngIf="!project" size="large">Créer un projet</ion-title>
+      <ion-title *ngIf="project" size="large">Modifier un projet</ion-title>
+
     </ion-toolbar>
   </ion-header>
 
-  <form [formGroup]="form" (ngSubmit)="createProject()">
-    <ion-item>
-      <ion-label position="floating">Nom du projet</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Description</ion-label>
-      <ion-textarea formControlName="description"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Priorité</ion-label>
-      <ion-select formControlName="priority">
-        <ion-select-option value="1">Basse</ion-select-option>
-        <ion-select-option value="2">Moyenne</ion-select-option>
-        <ion-select-option value="3">Haute</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-button expand="full" type="submit">Créer</ion-button>
+  <form [formGroup]="form">
+
+    <ion-list>
+      <ion-item>
+        <ion-input labelPlacement="floating" formControlName="name">
+          <div slot="label">Nom du projet
+            <ion-text color="danger">(Required)
+
+            </ion-text>
+          </div>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input labelPlacement="floating" formControlName="description">
+          <div slot="label">Description
+          </div>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Priorité</ion-label>
+        <ion-select formControlName="priority">
+          <ion-select-option value="1">Basse</ion-select-option>
+          <ion-select-option value="2">Moyenne</ion-select-option>
+          <ion-select-option value="3">Haute</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div style="text-align: center; padding-top: 40px; z-index:2;">
+      <ion-img *ngIf="imageUrl" [src]="imageUrl" style="width: 100%; margin-top: 10px;"></ion-img>
+      <ion-button color="success" (click)="takePhoto()"><ion-icon name="camera"></ion-icon></ion-button>
+
+      <ion-button color="success" class="half-width" type="submit" (click)="onSubmit()"><span
+          *ngIf="!project">Créer</span><span *ngIf="project">Mettre à jour</span></ion-button>
+    </div>
   </form>
 
 </ion-content>

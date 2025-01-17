@@ -18,6 +18,7 @@ export class TaskFormPage implements OnInit
   public projectId: number | undefined;
   private taskId: string | null;
   imageUrl: string | undefined;
+  task: Task | undefined;
 
 
   constructor(
@@ -29,7 +30,9 @@ export class TaskFormPage implements OnInit
   {
 
     this.form = new FormGroup({
-      name: new FormControl('', Validators.required)
+      name: new FormControl('', Validators.required),
+      // imageUrl: new FormControl('', Validators.required),
+      done: new FormControl(false, Validators.required)
     });
 
     this.taskId = this.route.snapshot.paramMap.get('taskId');
@@ -39,8 +42,11 @@ export class TaskFormPage implements OnInit
 
       this.taskService.getTask(parseInt(this.taskId)).then(task =>
       {
+        this.task = task
         this.form.patchValue({
-          name: task.name
+          name: task.name,
+          // imageUrl: task.imageUrl,
+          done: task.done
         });
       });
 
@@ -56,43 +62,56 @@ export class TaskFormPage implements OnInit
 
   }
 
-  submit()
+  onSubmit()
   {
     if (!this.updateProcess)
     {
       const task = new Task();
       task.name = this.form.value.name;
+      // task.imageUrl = this.imageUrl || '';
       task.done = false;
 
-      if (this.projectId === undefined)
+      if (this.projectId)
       {
-        return;
+        console.log('create Project ID:', this.projectId);
+        this.taskService.saveTask(this.projectId, task).then(
+          (response) =>
+          {
+            this.router.navigate(['/project/' + this.projectId]).then(() =>
+            {
+              window.location.reload();
+            }
+            );
+          });
       }
 
-      this.taskService.saveTask(this.projectId, task).then(
-        (response) =>
-        {
-          this.router.navigate(['/project/' + this.projectId]);
-        });
 
     } else
     {
-      const task = new Task();
-      task.name = this.form.value.name;
-      task.done = false;
 
-      if (this.projectId === undefined)
+      if (this.task)
       {
-        return;
+
+        console.log('update this.task ID:', this.task);
+        console.log('update Project ID:', this.projectId);
+        this.task.name = this.form.value.name;
+        // this.task.imageUrl = this.imageUrl || '';
+        this.task.done = false;
+
+
+
+        this.taskService.updateTask(this.task).then(
+          (response) =>
+          {
+            console.log('update response:', response);
+            // this.router.navigate(['/home']).then(() =>
+            // {
+            //   window.location.reload();
+            //   }
+            // );
+          });
       }
-
-      this.taskService.updateTask(task).then(
-        (response) =>
-        {
-          this.router.navigate(['/project/' + this.projectId]);
-        });
     }
-
   }
 
   async takePhoto(): Promise<any>
@@ -102,18 +121,23 @@ export class TaskFormPage implements OnInit
       const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,
       });
 
-      const imageUrl = image.webPath;
+      this.imageUrl = image.dataUrl;
 
-      console.log('Image URL:', imageUrl);
-      return imageUrl;
+      console.log('Image URL:', this.imageUrl);
+      return this.imageUrl;
     } catch (error)
     {
       console.error('Camera issue:', error);
     }
+  }
+
+  goBack()
+  {
+    this.router.navigate(['/home']);
   }
 
 

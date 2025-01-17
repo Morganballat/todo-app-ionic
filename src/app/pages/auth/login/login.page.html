@@ -5,26 +5,28 @@
 </ion-header>
 
 <ion-content *ngIf="!isLogged" class="ion-padding">
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-      <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
-      <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email.</small>
-    </ion-text>
+  <div class="centered-content">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
+        <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email.</small>
+      </ion-text>
 
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-      <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
-      <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters
-        long.</small>
-    </ion-text>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+        <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters
+          long.</small>
+      </ion-text>
 
-    <ion-button expand="full" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
-  </form>
+      <ion-button expand="full" color="success" type="submit" [disabled]="loginForm.invalid">Se connecter</ion-button>
+    </form>
+  </div>
 </ion-content>

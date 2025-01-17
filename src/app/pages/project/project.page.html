@@ -3,29 +3,58 @@
     <ion-header collapse="condense">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/"></ion-back-button>
+          <ion-button class="back-chevron" (click)="goBack()"><ion-icon
+              name="chevron-back-outline"></ion-icon></ion-button>
         </ion-buttons>
-        <ion-title size="large" class="ion-text-center">{{ project.name }}</ion-title>
-        <ion-button [routerLink]="['/task-form', project.id]">
-          <ion-icon slot="icon-only" name="add"></ion-icon>
-        </ion-button>
+        <ion-text size="large" class="ion-text-center">
+          <h1>{{ project.name }}</h1>
+        </ion-text>
+        <ion-buttons slot="end">
+          <ion-button color="success" [routerLink]="['/project-form/', project.id]"><ion-icon
+              name="pencil-outline"></ion-icon></ion-button>
+
+          <ion-button color="danger" (click)="deleteProject()"><ion-icon name="trash"></ion-icon></ion-button>
+
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
-    <ion-list>
-      <ion-item *ngFor="let task of project.tasks">
-        <div (click)="updateTask(task.id)">
+    <ion-list class="ion-padding-bottom">
+      <ion-item-sliding *ngFor="let task of project.tasks">
+        <ion-item>
+          <ion-label>
+            <div (click)="updateTask(task.id)">
 
-          <div *ngIf="task.done">
-            <ion-label><s>{{ task.name }}</s></ion-label>
-          </div>
-          <div *ngIf="!task.done">
-            <ion-label>{{ task.name }}</ion-label>
-          </div>
-        </div>
-        <ion-checkbox [(ngModel)]="task.done" (ionChange)="completeTask(task)"></ion-checkbox>
-      </ion-item>
+              <div *ngIf="task.done">
+                <ion-label><s>
+                    <p>{{ task.name }}</p>
+                  </s></ion-label>
+              </div>
+              <div *ngIf="!task.done">
+                <ion-label>
+                  <p>{{ task.name }}</p>
+                </ion-label>
+              </div>
+            </div>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option>
+            <ion-icon slot="icon-only" name="checkmark-outline" (click)="completeTask(task)"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteTask(task)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-list>
 
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end " style="margin-bottom: 90px;">
+      <ion-fab-button color="success" [routerLink]="['/task-form/', project.id]">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 </ion-content>

@@ -4,4 +4,5 @@ export class Task
     projectId!: number;
     name!: string;
     done!: boolean;
+    // imageUrl!: string;
 }

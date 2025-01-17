@@ -23,3 +23,16 @@
   color: white;
 
 }
+
+ion-content::part(scroll) {
+  padding-bottom: var(--ion-safe-area-top, 0);
+}
+
+ion-button[slot='fixed'] {
+  top: 50%;
+  right: 20px;
+}
+
+ion-fab {
+  margin-bottom: var(--ion-safe-area-bottom, 25px);
+}

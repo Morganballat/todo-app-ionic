@@ -4,6 +4,7 @@ import { Project } from './models/project';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from 'src/services/task-service';
 import { Task } from '../task/models/task';
+import { HomePage } from '../home/home.page';
 
 @Component({
   selector: 'app-project',
@@ -12,8 +13,10 @@ import { Task } from '../task/models/task';
 })
 export class ProjectPage implements OnInit
 {
+  homepage = HomePage;
 
   public project!: Project;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +36,7 @@ export class ProjectPage implements OnInit
         if (project)
         {
           this.project = project;
+
         } else
         {
           console.error('Project not found');
@@ -44,6 +48,7 @@ export class ProjectPage implements OnInit
   deleteTask(task: Task)
   {
     this.taskService.removeTask(task);
+    window.location.reload();
   }
 
   updateTask(id: any)
@@ -53,10 +58,27 @@ export class ProjectPage implements OnInit
 
   completeTask(task: Task)
   {
+    console.log(task);
     this.taskService.completeTask(task.id).then(
       (response) =>
       {
-        console.log(response);
+        window.location.reload();
       });
   }
+
+  goBack()
+  {
+    this.router.navigate(['/home']);
+  }
+
+  deleteProject()
+  {
+    this.projectService.deleteProject(this.project.id);
+    this.router.navigate(['/home']).then
+      (() =>
+      {
+        window.location.reload();
+      });
+  }
+
 }
