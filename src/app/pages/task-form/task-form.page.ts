@@ -134,7 +134,11 @@ export class TaskFormPage implements OnInit
 
   goBack()
   {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then
+      (() =>
+      {
+        window.location.reload();
+      });
   }
 
 
