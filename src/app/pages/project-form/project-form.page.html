@@ -43,8 +43,8 @@
         </ion-select>
       </ion-item>
     </ion-list>
-    <div style="text-align: center; padding-top: 40px; z-index:2;">
-      <ion-img *ngIf="imageUrl" [src]="imageUrl" style="width: 100%; margin-top: 10px;"></ion-img>
+    <div style="text-align: center; justify-content: center; padding-top: 40px; z-index:2;">
+      <ion-img *ngIf="imageUrl" [src]="imageUrl" style="margin:auto;width: 60%; margin-top: 10px;"></ion-img>
       <ion-button color="success" (click)="takePhoto()"><ion-icon name="camera"></ion-icon></ion-button>
 
       <ion-button color="success" class="half-width" type="submit" (click)="onSubmit()"><span

@@ -24,11 +24,9 @@ export class TaskFormPage implements OnInit
   constructor(
     private taskService: TaskService,
     private router: Router,
-    private route: ActivatedRoute,
-
+    private route: ActivatedRoute
   )
   {
-
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       // imageUrl: new FormControl('', Validators.required),
@@ -104,11 +102,11 @@ export class TaskFormPage implements OnInit
           (response) =>
           {
             console.log('update response:', response);
-            // this.router.navigate(['/home']).then(() =>
-            // {
-            //   window.location.reload();
-            //   }
-            // );
+            this.router.navigate(['/project', this.task?.projectId]).then(() =>
+            {
+              window.location.reload();
+            }
+            );
           });
       }
     }
@@ -127,7 +125,6 @@ export class TaskFormPage implements OnInit
 
       this.imageUrl = image.dataUrl;
 
-      console.log('Image URL:', this.imageUrl);
       return this.imageUrl;
     } catch (error)
     {

@@ -25,7 +25,7 @@ export class ProjectFormPage implements OnInit
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', Validators.required),
+      imageUrl: new FormControl(''),
       priority: new FormControl(0, Validators.required)
     });
 
@@ -42,7 +42,7 @@ export class ProjectFormPage implements OnInit
             name: project.name,
             description: project.description,
             imageUrl: project.imageUrl,
-            priority: project.priority
+            priority: project.priority.toString()
           });
 
         }
@@ -58,11 +58,18 @@ export class ProjectFormPage implements OnInit
 
   onSubmit()
   {
+    console.log(this.form.value);
+    if (this.form.invalid)
+    {
+      return;
+    }
+
     if (!this.project)
     {
+      console.log(this.form.value);
       const project = new Project();
       project.name = this.form.value.name;
-      project.priority = this.form.value.priority;
+      project.priority = parseInt(this.form.value.priority);
       project.imageUrl = this.imageUrl || '';
 
       this.projectService.createProject(project).subscribe(
@@ -74,7 +81,7 @@ export class ProjectFormPage implements OnInit
     } else
     {
       this.project.name = this.form.value.name;
-      this.project.priority = this.form.value.priority;
+      this.project.priority = parseInt(this.form.value.priority);
       this.project.imageUrl = this.imageUrl || '';
 
       this.projectService.updateProject(this.project).subscribe(
